@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anna Jean Logrono - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f7ff 0%, #ffffff 50%, #cceeff 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background: rgba(135, 206, 250, 0.3);
+            border-radius: 50%;
+            animation: rise 15s infinite ease-in;
+        }
+
+        @keyframes rise {
+            to {
+                bottom: 110%;
+                transform: translateX(100px);
+            }
+        }
+
+        .bubble:nth-child(1) { left: 10%; width: 80px; height: 80px; animation-delay: 0s; }
+        .bubble:nth-child(2) { left: 30%; width: 60px; height: 60px; animation-delay: 2s; }
+        .bubble:nth-child(3) { left: 50%; width: 100px; height: 100px; animation-delay: 4s; }
+        .bubble:nth-child(4) { left: 70%; width: 70px; height: 70px; animation-delay: 6s; }
+        .bubble:nth-child(5) { left: 85%; width: 90px; height: 90px; animation-delay: 8s; }
+
+        header {
+            background: linear-gradient(to right, #87ceeb, #b0e0e6);
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: slideDown 1s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-pic-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.1);
+        }
+
+        h1 {
+            font-size: 3em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #f0f8ff;
+            margin-top: 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            background: white;
+            margin: 30px 0;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(135, 206, 250, 0.3);
+            animation: slideUp 0.8s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(135, 206, 250, 0.5);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            color: #4a9eca;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #87ceeb;
+            padding-bottom: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .info-item {
+            padding: 20px;
+            background: linear-gradient(135deg, #e0f7ff, #f0f8ff);
+            border-radius: 10px;
+            border-left: 4px solid #87ceeb;
+            transition: transform 0.3s ease;
+        }
+
+        .info-item:hover {
+            transform: scale(1.05);
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #4a9eca;
+            font-size: 1.1em;
+        }
+
+        .info-value {
+            margin-top: 8px;
+            font-size: 1.05em;
+            color: #555;
+        }
+
+        .talent-list, .achievement-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .talent-list li, .achievement-list li {
+            padding: 15px;
+            margin: 10px 0;
+            background: linear-gradient(to right, #e0f7ff, #ffffff);
+            border-radius: 8px;
+            border-left: 5px solid #87ceeb;
+            animation: fadeInLeft 0.8s ease;
+            transition: all 0.3s ease;
+        }
+
+        .talent-list li:hover, .achievement-list li:hover {
+            background: linear-gradient(to right, #b0e0e6, #e0f7ff);
+            transform: translateX(10px);
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                transform: translateX(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Gallery Styles */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(135, 206, 250, 0.4);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        .gallery-caption h3 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .gallery-caption p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: translateY(-50%) scale(0);
+            }
+            to {
+                transform: translateY(-50%) scale(1);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #87ceeb;
+        }
+
+        footer {
+            background: linear-gradient(to right, #87ceeb, #b0e0e6);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .profile-pic-container {
+                width: 150px;
+                height: 150px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <header>
+        <div class="profile-section">
+            <div class="profile-pic-container">
+                <img src="annablue.jpg" alt="Anna Jean Logroño" class="profile-pic">
+            </div>
+            <div>
+                <h1 class="pulse">Anna Jean L. Logrono</h1>
+                <p class="subtitle">Web Portfolio & Professional Profile</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="section">
+            <h2>About Me</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Name</div>
+                    <div class="info-value">Anna Jean L. Logroño</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Birthdate</div>
+                    <div class="info-value">August 01, 2000</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Home Address</div>
+                    <div class="info-value">Ilaud, Inabanga, Bohol</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Education (College)</div>
+                    <div class="info-value">Inabanga College of Arts and Science</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Education (Highschool and Seniorhigh)</div>
+                    <div class="info-value">Saint Paul's Academy</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Education (Elementary)</div>
+                    <div class="info-value">Inabanga South Central Elementary School</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Contact number</div>
+                    <div class="info-value">09319881931</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Facebook account</div>
+                    <div class="info-value">Anna Jean L. Logroño (Najean)</div>
+                    <a href="https://www.facebook.com/annajean.logrono" target="_blank">Click here to visit my fb account</a>
+
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Email Address</div>
+                    <div class="info-value">logronoannajean@gmail.com</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Talents & Skills</h2>
+            <ul class="talent-list">
+                <li>💄 <strong>Makeup Artist</strong> - Creative beauty and cosmetic artistry</li>
+                <li>🎤 <strong>Singing</strong> - Vocal performance and musical expression</li>
+                <li>💃 <strong>Dancing</strong> - Choreography and dance performance</li>
+                <li> &#x1F35C <strong>Cooking</strong> - I love cooking</li>
+                <li> &#128247 <strong>Photograph</strong> - if I have saw a beautiful view I took a picture of it</li>
+                <li>  🤑      <strong>Business</strong> - I love also having business </li>
+                <li> &#x1F370  <strong>Baking</strong> - I love also baking cakes, bread and cookies</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Achievements</h2>
+            <ul class="achievement-list">
+                <li>🏆 <strong>Champion - Best Arduino Project</strong><br>Recognized for excellence in Arduino technology and innovation held in ICAS Ground</li>
+                <li>🏆 <strong>Champion - LIBER_HENYO </strong><br> Recognized winning in 90th NATIONAL BOOK WEEK CELEBRATION held in ICAS MMC</li>
+                <li>🏆<strong> Champion Singing Contest (Bisaya Song) </strong><br> Saint Paul's Academy </li>
+                <li>&#128079<strong> 7th SK Kagwad</strong><br>BSK Election 2023 (Ilaud Brgy. Hall)</li>
+                <li> &#129352 <strong> 2nd Runner Up Quiz Bowl (ICAS Intramurals 2024)</strong><br> Held in ICAS Ground</li>
+             
+               
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Professional Development</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Trainings</div>
+                    <div class="info-value">
+                        <li>Leadership Training</li>
+                        <li>Arduino Workshop</li> 
+                        <li>Bread and Pastry Production NCll</li> 
+                        <li>BSL Training</li> 
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Seminars</div>
+                    <div class="info-value">
+                        <li>Women's Month Seminar</li> 
+                        <li>Covid Virus and its Vaccine Awareness</li>
+                        <li>KKDAT(Kabataan Kontra Droga at Terrorismo)</li> 
+                        <li>Career Guidance</li> 
+                        <li>Corona Virus and its Vaccine Awareness</li>
+                        <li> TESDA seminar</li>
+                        <li>Mental Health Awareness</li> 
+                        <li>Artificial Intelligent Awareness</li> 
+                        <li> Intellectual Property Awareness</li>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="makeup.jpg" alt="Makeup Work">
+                    <div class="gallery-caption">
+                        <h3>Makeup Artistry</h3>
+                        <p>Professional makeup portfolio</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="pfcmember.jpg" alt="Performance">
+                    <div class="gallery-caption">
+                        <h3>Performance</h3>
+                        <p>PFC Member</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="bestarduino.jpg" alt="Arduino Project">
+                    <div class="gallery-caption">
+                        <h3>Arduino Champion</h3>
+                        <p>Award-winning Arduino project</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="leadershiptraining.jpg" alt="Leadership Training">
+                    <div class="gallery-caption">
+                        <h3>Leadership Training</h3>
+                        <p>Professional development programs</p>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="figma.jpg" alt="Figma Explore">
+                    <div class="gallery-caption">
+                        <h3>Figma Practice</h3>
+                        <p> CRM course activity</p>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="figma22(6).jpg" alt="Figma Explore">
+                    <div class="gallery-caption">
+                        <h3>Figma Practice</h3>
+                        <p> HCI course activity</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="arduinoworkshop.jpg" alt="Women's Seminar">
+                    <div class="gallery-caption">
+                        <h3>Arduino Workshop</h3>
+                        <p>Empowerment and learning</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="tesda.jpg" alt="TESDA Dump Pictue">
+                    <div class="gallery-caption">
+                        <h3>TESDA (Bread and Pastry Production</h3>
+                        <p>Baking cake</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="mentalhealth.jpg" alt="More Work">
+                    <div class="gallery-caption">
+                        <h3>Additional Work</h3>
+                        <p>"Mental Health Awareneness (Digital:Finding Balance in the online World and Intellectual Property Awareness)"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal for viewing images -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Anna Jean Logrono. All rights reserved.</p>
+        <p>Passionate about technology, creativity, and continuous learning.</p>
+    </footer>
+
+    <script>
+        function openModal(element) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const img = element.querySelector('img');
+            
+            modal.style.display = 'block';
+            modalImg.src = img.src;
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
